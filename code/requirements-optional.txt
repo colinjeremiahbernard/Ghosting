@@ -1,0 +1,7 @@
+# The audit pipeline runs using the Python standard library alone.
+# Install these packages for additional document and screenshot extraction:
+pdfplumber>=0.11
+pypdf>=5
+Pillow>=10
+pytesseract>=0.3
+# pytesseract also requires the Tesseract OCR executable on PATH.

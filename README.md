@@ -31,13 +31,24 @@ Your solution must:
 - Generate one prediction row for every request in `dataset/deletion_requests.csv`
 - Write the final predictions to `output.csv` in the repository root
 
-Run the starter Python entry point with:
+Run the evidence-grounded audit agent with Python 3.10 or newer:
 
 ```bash
 python3 code/main.py
 ```
 
-The blank template at `dataset/output.csv` is provided as a reference. Your final generated file for submission must be the root-level `output.csv`.
+The blank template at `dataset/output.csv` is provided as a reference. The program writes the final predictions to the root-level `output.csv`.
+
+The agent reads the request, identity history, activity, policy, evidence manifest, and all manifest-listed evidence. SQL exports are read through SQLite; JSON, logs, text, and PDF documents are parsed locally. Screenshot OCR is enabled when Pillow, `pytesseract`, and the Tesseract executable are available; otherwise the program continues without OCR-derived observations.
+
+Run the public-sample and synthetic evaluation workflow with:
+
+```bash
+python3 code/main.py --input dataset/sample_deletion_requests.csv --output code/evaluation/predicted_sample.csv
+python3 code/evaluation/evaluate.py
+```
+
+The implementation is deterministic and uses no hosted model or API. Its evidence parsing and policy logic are reviewable in `code/main.py`; the evaluation workflow and agent decision protocol are in `code/evaluation/` and `code/prompts/`.
 
 
 ## Dataset
